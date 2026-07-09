@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= user.name %> | Khata Book
+    </title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+
+    <div class="logo">
+        <div class="icon">📒</div>
+        <h1>KHATA BOOK</h1>
+        <p>Manage Customer Accounts Easily</p>
+    </div>
+
+    <nav>
+        <a href="/home">
+            <div class="customer add">🏠 Home</div>
+        </a>
+
+        <a href="/newadd">
+            <div class="customer add">➕ Add Customer</div>
+        </a>
+    </nav>
+
+    <div class="container">
+        <h1 class="title">
+            <%= user.name %>
+        </h1>
+        <div class="summary">
+            <div class="card">
+                <h3>Total Given</h3>
+                <h2>₹ <%= det.given %>
+                </h2>
+            </div>
+            <div class="card">
+                <h3>Total Taken</h3>
+                <h2>₹ <%= det.taken %>
+                </h2>
+            </div>
+            <div class="card">
+                <h3>Net Balance</h3>
+                <h2 class="<%= det.net >= 0 ? 'positive' : 'negative' %>">
+                    ₹ <%= det.net %>
+                </h2>
+            </div>
+            <div class="card">
+                <h3>Transactions</h3>
+                <h2>
+                    <%= det.no %>
+                </h2>
+            </div>
+        </div>
+        <button id="toggleForm" class="toggle-btn">
+            ➕ Add Transaction
+        </button>
+        <div id="formContainer" class="form-container hidden">
+            <h2>Add Transaction</h2>
+            <form action="/add" method="POST">
+                <input type="text" name="desc" placeholder="Description" required>
+                <input type="number" name="amount" placeholder="Amount" required>
+                <select name="option" required>
+                    <option value="">Select Type</option>
+                    <option value="given">Given</option>
+                    <option value="taken">Taken</option>
+                </select>
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <button type="submit">
+                    Save Transaction
+                </button>
+            </form>
+        </div>
+        <h2 class="history-title">Transaction History</h2>
+
+        <% if(user.trans.length===0){ %>
+
+            <div class="empty">
+                No transactions found.
+            </div>
+
+            <% } %>
+
+                <% user.trans.forEach(tr=> { %>
+
+                    <div class="transaction-card">
+
+                        <div class="left">
+                            <h3>
+                                <%= tr.desc %>
+                            </h3>
+                            <p>
+                                <%= tr.date %>
+                            </p>
+                        </div>
+
+                        <div class="right">
+
+                            <span class="<%= tr.type==='given' ? 'positive' : 'negative' %>">
+                                <%= tr.type==="given" ? "+" : "-" %> ₹ <%= tr.amount %>
+                            </span>
+
+                            <form action="/delete/<%= user.id %>/<%= tr.id %>" method="POST"
+                                onsubmit="return confirm('Delete this transaction?')">
+                                <button type="submit" class="delete-btn">
+                                    🗑 Delete
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <% }) %>
+
+    </div>
+
+    <script>
+        const btn = document.getElementById("toggleForm");
+        const form = document.getElementById("formContainer");
+
+        btn.addEventListener("click", () => {
+            form.classList.toggle("hidden");
+
+            if (form.classList.contains("hidden")) {
+                btn.textContent = "➕ Add Transaction";
+            } else {
+                btn.textContent = "✖ Close";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

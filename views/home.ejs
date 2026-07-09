@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khata Book</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+<div class="logo">
+    <div class="icon">📒</div>
+    <h1>KHATA BOOK</h1>
+    <p>Manage Customer Accounts Easily</p>
+</div>
+
+<nav>
+     <a href="/newadd">
+        <div class="customer add">
+            ➕ Add Customer
+        </div>
+    </a>
+    <a href="/user">
+        <div class="customer">
+            👤 User
+        </div>
+    </a>
+</nav>
+
+<div class="container">
+
+    <div class="summary">
+
+        <div class="card">
+            <h3>Total Customers</h3>
+            <h2><%= det.no %></h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Given</h3>
+            <h2 style="color: green;">₹ <%= det.given %></h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Taken</h3>
+            <h2 style="color:red;">₹ <%= det.taken %></h2>
+        </div>
+
+        <div class="card">
+            <h3>Net Balance</h3>
+            <h2 class="<%= det.net >= 0 ? 'positive' : 'negative' %>">
+                    ₹ <%= det.net %>
+                </h2>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

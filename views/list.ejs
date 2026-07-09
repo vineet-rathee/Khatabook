@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khata Book</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+<div class="logo">
+    <div class="icon">📒</div>
+    <h1>KHATA BOOK</h1>
+    <p>Manage Customer Accounts Easily</p>
+</div>
+
+<nav>
+     <a href="/newadd">
+        <div class="customer add">
+            ➕ Add Customer
+        </div>
+    </a>
+    <a href="/home">
+        <div class="customer add">
+            🏠 Home
+        </div>
+    </a>
+</nav>
+
+<div class="user-list">
+
+    <h2>Customers</h2>
+
+    <% if(data.length === 0){ %>
+        <div class="empty">
+            No customers added yet.
+        </div>
+    <% } %>
+    <% data.forEach(user => { 
+        let net = 0;
+        user.trans.forEach(tr => {
+            if(tr.type === "given")
+                net += Number(tr.amount);
+            else
+                net -= Number(tr.amount);
+        });
+    %>
+    <a href="/user/<%= user.id %>" class="user-card">
+        <div class="left">
+            <h3>👤 <%= user.name %></h3>
+            <p>
+                Transactions :
+                <strong><%= user.trans.length %></strong>
+            </p>
+        </div>
+        <div class="right">
+            <h4>Net Balance</h4>
+            <span class="<%= net>=0 ? 'positive' : 'negative' %>">
+                ₹ <%= net %>
+            </span>
+        </div>
+        <form
+        action="/delete/<%= user.id %>"
+        method="POST"
+        onsubmit="return confirm('Delete this customer?')"
+        >
+        <button class="delete-btn" type="submit">
+            🗑 Delete
+        </button>
+    </form>
+    </a>
+    <% }) %>
+</div>
+
+
+
+</body>
+</html>

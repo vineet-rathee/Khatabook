@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khata Book</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+<div class="logo">
+    <div class="icon">📒</div>
+    <h1>KHATA BOOK</h1>
+    <p>Manage Customer Accounts Easily</p>
+</div>
+
+<nav>
+    <a href="/home">
+        <div class="customer add">
+            🏠 Home
+        </div>
+    </a>
+
+    <a href="/user">
+        <div class="customer">
+            👤 User
+        </div>
+    </a>
+</nav>
+
+<div class="form-container">
+
+    <h2>Add New User</h2>
+
+    <form action="/new" method="POST">
+
+        <div class="input-group">
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter User name"
+                required
+            >
+        </div>
+
+        <button type="submit">➕ Add Customer</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
